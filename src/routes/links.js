@@ -31,4 +31,11 @@ router.get('/edit/:id', async (req, res) => {
   res.render('links/edit', { link: links[0] });
 });
 
+router.post('/edit/:id', async (req, res) => {
+  const { id } = req.params;
+  const updateLink = ({ title, url, description } = req.body);
+  await pool.query('UPDATE links SET ? WHERE id = ?', [updateLink, id]);
+  res.redirect('/links');
+});
+
 module.exports = router;
