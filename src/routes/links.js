@@ -12,6 +12,7 @@ router.post('/add', async (req, res) => {
   const newLink = ({ title, url, description } = req.body);
 
   await pool.query('INSERT INTO links SET ?', [newLink]);
+  req.flash('success', 'Link salvo com sucesso!');
   res.redirect('/links');
 });
 
@@ -22,6 +23,7 @@ router.get('/', async (req, res) => {
 
 router.get('/delete/:id', async (req, res) => {
   await pool.query('DELETE FROM links WHERE id = ?', [req.params.id]);
+  req.flash('success', 'Link removido com sucesso!');
   res.redirect('/links');
 });
 
@@ -35,6 +37,7 @@ router.post('/edit/:id', async (req, res) => {
   const { id } = req.params;
   const updateLink = ({ title, url, description } = req.body);
   await pool.query('UPDATE links SET ? WHERE id = ?', [updateLink, id]);
+  req.flash('success', 'Link atualizado com sucesso!');
   res.redirect('/links');
 });
 
