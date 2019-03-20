@@ -23,7 +23,7 @@ passport.use(
           user.password
         );
         if (validPassword) {
-          done(null, user, req.flash('success', `Bem vindo ${user.username}`));
+          return done(null, user, false);
         } else {
           done(null, false, req.flash('message', 'Senha incorreta!'));
         }
