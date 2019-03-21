@@ -9,14 +9,14 @@ router.get('/add', isLoggedIn, (req, res) => {
 });
 
 router.post('/add', isLoggedIn, async (req, res) => {
-  // const { title, url, description} = req.body
-  const newLink = ({ title, url, description, user_id: user.id } = req.body);
-  // const newLink = {
-  //   title,
-  //   url,
-  //   description,
-  //   user_id: user.id
-  // };
+  const { title, url, description } = req.body;
+
+  const newLink = {
+    title,
+    url,
+    description,
+    user_id: req.user.id
+  };
 
   await pool.query('INSERT INTO links SET ?', [newLink]);
   req.flash('success', 'Link salvo com sucesso!');
